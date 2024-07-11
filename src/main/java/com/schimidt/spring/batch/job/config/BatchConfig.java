@@ -9,7 +9,6 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
@@ -76,23 +75,6 @@ public class BatchConfig {
             .flow(step1)
             .end()
             .build();
-    }
-
-    public static class CoffeeItemProcessor implements ItemProcessor<Coffee, Coffee> {
-
-        private static final Logger LOGGER = LoggerFactory.getLogger(CoffeeItemProcessor.class);
-
-        @Override
-        public Coffee process(final Coffee coffee) throws Exception {
-            String brand = coffee.brand().toUpperCase();
-            String origin = coffee.origin().toUpperCase();
-            String characteristics = coffee.characteristics().toUpperCase();
-
-            Coffee transformedCoffee = new Coffee(brand, origin, characteristics);
-            LOGGER.info("Converting ( {} ) into ( {} )", coffee, transformedCoffee);
-
-            return transformedCoffee;
-        }
     }
 }
 
