@@ -21,7 +21,7 @@ class BatchApplicationTests {
 	private JdbcTemplate jdbcTemplate;
 
 	@Test
-	public void testCoffeeJob(@Autowired Job job) throws Exception {
+	public void shouldExecuteImportCoffeeTaskSuccessfully(@Autowired Job job) throws Exception {
 		this.jobLauncherTestUtils.setJob(job);
 		var jobExecution = jobLauncherTestUtils.launchJob();
 		Assertions.assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());
